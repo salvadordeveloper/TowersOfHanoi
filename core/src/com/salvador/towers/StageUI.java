@@ -23,6 +23,11 @@ public class StageUI {
     public ButtonUI btnAddDisc;
     public ButtonUI btnRemoveDisc;
 
+    private boolean isPlaying = false;
+
+    private Texture txePlaying;
+    private Texture txePause;
+
     public StageUI(final Main main, Stage stage) {
         this.stage = stage;
         this.main = main;
@@ -37,6 +42,16 @@ public class StageUI {
         btnAddDisc = new ButtonUI(100,270,50,50);
         btnRemoveDisc = new ButtonUI(100,170,50,50);
 
+        btnPrev.setTexture(new Texture(Gdx.files.internal("btnPrev.png")));
+        btnNext.setTexture(new Texture(Gdx.files.internal("btnNext.png")));
+
+        txePlaying = new Texture(Gdx.files.internal("btnPlay.png"));
+        txePause = new Texture(Gdx.files.internal("btnPause.png"));
+
+        btnPlay.setTexture(txePlaying);
+
+        btnAddDisc.setTexture(new Texture(Gdx.files.internal("btnAdd.png")));
+        btnRemoveDisc.setTexture(new Texture(Gdx.files.internal("btnRemove.png")));
 
         stage.addActor(btnPrev);
         stage.addActor(btnPlay);
@@ -55,7 +70,13 @@ public class StageUI {
         btnPlay.setOnClickListenner(new ButtonUI.OnClickListenner() {
             @Override
             public void onClick() {
-                main.startPlay();
+                if(!isPlaying){
+                    main.startPlay();
+                    btnPlay.setTexture(txePause);
+                }else{
+                    btnPlay.setTexture(txePlaying);
+                }
+                isPlaying = !isPlaying;
             }
         });
 

@@ -25,10 +25,12 @@ public class Main extends ApplicationAdapter {
 
 	private ArrayList<Move> moves;
 
-	private int nMoves;
 	private int nDisc;
 
 	private boolean isPlaying = false;
+
+	private int totalMoves;
+	private int actualMove;
 
 	@Override
 	public void create() {
@@ -42,13 +44,16 @@ public class Main extends ApplicationAdapter {
 
 		moves = new ArrayList<>();
 		stage = new Stage(viewport);
-		stage.setDebugAll(true);
 		Gdx.input.setInputProcessor(stage);
 
 		stageUI = new StageUI(this, stage);
 		stageBase = new StageBase(this,stage);
 
 		//Setup Default Tower of Hanoi
+
+		totalMoves = 0;
+		actualMove = 0;
+
 		nDisc = 3;
 		stageBase.createDiscs(nDisc);
 		generateMoves(nDisc);
@@ -59,8 +64,7 @@ public class Main extends ApplicationAdapter {
 		System.out.println("Generando movimientos : ");
 		towerOfHanoi(n, 1, 3, 2);
 		System.out.println("Movimientos generados.");
-
-		nMoves = moves.size();
+		totalMoves = moves.size();
 	}
 
 	void towerOfHanoi(int n, int from, int to, int aux) {
@@ -82,7 +86,6 @@ public class Main extends ApplicationAdapter {
 		stage.getViewport().update(width, height, true);
 	}
 
-	int i = 0;
 
 	@Override
 	public void render() {
@@ -96,11 +99,11 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public void nextMove() {
-		if (i < nMoves) {
-			Move move = moves.get(i);
+		if (actualMove < totalMoves) {
+			Move move = moves.get(actualMove);
 			stageBase.makeMove(move.from, move.to);
 			System.out.println("Moviendo : " + move.from + " - " + move.to);
-			i++;
+			actualMove++;
 		}else {
 			if(isPlaying){
 				isPlaying = false;
@@ -110,9 +113,9 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public void prevMove() {
-		if (i > 0) {
-			i--;
-			Move move = moves.get(i);
+		if (actualMove > 0) {
+			actualMove--;
+			Move move = moves.get(actualMove);
 			stageBase.makeMove(move.to, move.from);
 			System.out.println("Moviendo : " + move.from + " - " + move.to);
 		}
@@ -163,5 +166,9 @@ public class Main extends ApplicationAdapter {
 		}else{
 			isPlaying = false;
 		}
+	}
+
+	public void stopPlay(){
+		isPlaying= false;
 	}
 }

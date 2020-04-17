@@ -21,6 +21,7 @@ public class StageBase {
     private RectBase rectBase, rectUp1, rectUp2, rectUp3;
 
     private int Disc = 12;
+    private int baseHeight = 15;
 
     private ArrayList<Disc> listDiscs;
 
@@ -45,7 +46,7 @@ public class StageBase {
         posRectTwo = (SCREEN_WIDTH / 2) ;
         posRectThree = (SCREEN_WIDTH/2) + (600/4);
 
-        rectBase = new RectBase(posY, posY, 600,15);
+        rectBase = new RectBase(posY, posY, 600, baseHeight );
         rectUp1 = new RectBase(posRectOne - (Disc/2), posY, Disc,130);
         rectUp2 = new RectBase(posRectTwo - (Disc/2), posY,Disc,130);
         rectUp3 = new RectBase(posRectThree  - (Disc/2), posY, Disc,130);
@@ -68,7 +69,7 @@ public class StageBase {
 
         for(int i=0;i<num;i++){
             float width = 100 - (10*i);
-            Disc disc = new Disc(posRectOne - (width/2),posY+15+(DISC_HEIGHT * i),width);
+            Disc disc = new Disc(posRectOne - (width/2),posY+ baseHeight +(DISC_HEIGHT * i),width);
 
             String path = "colors/color" + String.valueOf(i+1) + ".png";
             disc.setTexture(new Texture(Gdx.files.internal(path)));
@@ -113,7 +114,7 @@ public class StageBase {
                 sequenceAction = new SequenceAction();
                 sequenceAction.addAction(Actions.moveTo(from.getX(), posY+150, 0.5f));
                 sequenceAction.addAction(Actions.moveTo(posRectOne - (from.getWidth() / 2), posY+150, 0.5f));
-                sequenceAction.addAction(Actions.moveTo(posRectOne - (from.getWidth() / 2), posY + 15 + (Disc * (stackOne.size() - 1)), 0.5f));
+                sequenceAction.addAction(Actions.moveTo(posRectOne - (from.getWidth() / 2), posY +  baseHeight  + (DISC_HEIGHT * (stackOne.size() - 1)), 0.5f));
                 sequenceAction.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
@@ -130,7 +131,7 @@ public class StageBase {
                 sequenceAction = new SequenceAction();
                 sequenceAction.addAction(Actions.moveTo(from.getX(), posY+150, 0.5f));
                 sequenceAction.addAction(Actions.moveTo(posRectTwo - (from.getWidth()/2), posY+150, 0.5f));
-                sequenceAction.addAction(Actions.moveTo(posRectTwo - (from.getWidth()/2), posY+15+(Disc*(stackTwo.size()-1)), 0.5f));
+                sequenceAction.addAction(Actions.moveTo(posRectTwo - (from.getWidth()/2), posY+ baseHeight +(DISC_HEIGHT *(stackTwo.size()-1)), 0.5f));
                 sequenceAction.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
@@ -146,7 +147,7 @@ public class StageBase {
                  sequenceAction = new SequenceAction();
                 sequenceAction.addAction(Actions.moveTo(from.getX(), posY+150, 0.5f));
                 sequenceAction.addAction(Actions.moveTo(posRectThree - (from.getWidth()/2), posY+150, 0.5f));
-                sequenceAction.addAction(Actions.moveTo(posRectThree - (from.getWidth()/2), posY+15+(Disc*(stackThree.size()-1)), 0.5f));
+                sequenceAction.addAction(Actions.moveTo(posRectThree - (from.getWidth()/2), posY+ baseHeight +(DISC_HEIGHT *(stackThree.size()-1)), 0.5f));
                 sequenceAction.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
@@ -154,7 +155,6 @@ public class StageBase {
                         return true;
                     }
                 });
-
 
                 from.addAction(sequenceAction);
                 break;

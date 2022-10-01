@@ -1,15 +1,14 @@
 package com.salvador.towers.desktop;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.salvador.towers.Main;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 800;
-		config.height = 450;
-		config.title = "Towers of Hanoi";
-		new LwjglApplication(new Main(), config);
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setWindowSizeLimits(800,450,800,450);
+		config.setTitle("Towers of Hanoi");
+		new Lwjgl3Application(new Main(), config);
 	}
 }
